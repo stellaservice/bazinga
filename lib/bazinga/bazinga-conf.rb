@@ -16,12 +16,7 @@ module Bazinga
       end
 
       def run
-        env_tag = (ENV['RAILS_ENV'] && ENV['RAILS_ENV'].downcase) || (Rails && Rails.env && Rails.env.downcase)
-
-        app_name =
-            ENV['BAZINGA_APP_NAME'] ||
-                (Bazinga::APP_NAME rescue nil) ||
-                Rails.application.class.parent_name.underscore.gsub("_", "-")
+        env_tag = (ENV['STELLA_ENV'] && ENV['STELLA_ENV'].downcase)
 
         console_tag = case env_tag
                         when 'production' then "(#{colorize('prod', 'red')})"
@@ -31,10 +26,10 @@ module Bazinga
                       end
 
         IRB.conf[:PROMPT][:RAILS_ENV] = {
-            :PROMPT_I => "#{app_name}#{console_tag} :%03n > ",
-            :PROMPT_N => "#{app_name}#{console_tag} :%03n?> ",
+            :PROMPT_I => "#{console_tag} :%03n > ",
+            :PROMPT_N => "#{console_tag} :%03n?> ",
             :PROMPT_S => "",
-            :PROMPT_C => "#{app_name}#{console_tag} :%03n?> ",
+            :PROMPT_C => "#{console_tag} :%03n?> ",
             :RETURN => "=> %s\n"
         }
 
